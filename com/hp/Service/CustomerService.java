@@ -143,18 +143,27 @@ public class CustomerService {
             System.out.println("你的余额是:" + money);
             //取完款后，更新原有存款
             currentCustomer.setMoney(money);
-        }else if(moneyIn.equals("8")){
-            Scanner sc = new Scanner(System.in);
-            System.out.println("请输入您的取款金额：");
-            int money = sc.nextInt();
-            if (money>0&&money<=currentCustomer.getMoney()){
-                currentCustomer.setMoney(currentCustomer.getMoney()-money);
-                System.out.println("取款成功");
-                System.out.println("你的当前余额为："+currentCustomer.getMoney());
-            }else {
-                System.out.println("输入错误");
+        }else if (moneyIn.equals("8")) {
+            // 那么 取款100 那么就应该 让 顾客的 钱 -100
+            double money = scanner.nextDouble();
+            if (money <= currentCustomer.getMoney()) {
+
+
+                if ((money % 100) == 0) {
+                    money = currentCustomer.getMoney() - money;
+                    currentCustomer.setMoney(money);
+                    System.out.println("取款成功！ 您的余额是: " + currentCustomer.getMoney());
+
+
+                } else {
+                    System.out.println("取款失败 ， 请输入100或100的倍数");
+                }
+            }else{
+                System.out.println("余额不足。");
             }
         }
+
+
     }
     //转账
     private void doTruanMoney() {
@@ -200,70 +209,20 @@ public class CustomerService {
         System.out.println("您的余额是 =" + newMoney);*/
         TextUtil.getMoneyUI();
         //1.让客户输入
+        System.out.println("请输入您需要存入的金额");
         Scanner scanner = new Scanner(System.in);
-        String numIn = scanner.nextLine();
-        if (numIn.equals("1")) {
-            //那么 存款100 那么就应该 让顾客的钱加上100
-            double money = currentCustomer.getMoney();
-            money = money + 100;
-            System.out.println("你的余额是:" + money);
-            //存完款后，更新原有存款
-            currentCustomer.setMoney(money);
-        }else if(numIn.equals("2")){
-            //那么 存款200 那么就应该 让顾客的钱加上200
-            double money = currentCustomer.getMoney();
-            money = money + 200;
-            System.out.println("你的余额是:" + money);
-            //存完款后，更新原有存款
-            currentCustomer.setMoney(money);
-        }else if(numIn.equals("3")){
-            //那么 存款300 那么就应该 让顾客的钱加上300
-            double money = currentCustomer.getMoney();
-            money = money + 300;
-            System.out.println("你的余额是:" + money);
-            //存完款后，更新原有存款
-            currentCustomer.setMoney(money);
-        }else if(numIn.equals("4")){
-            //那么 存款400 那么就应该 让顾客的钱加上200
-            double money = currentCustomer.getMoney();
-            money = money + 400;
-            System.out.println("你的余额是:" + money);
-            //存完款后，更新原有存款
-            currentCustomer.setMoney(money);
-        }else if(numIn.equals("5")){
-            //那么 存款800 那么就应该 让顾客的钱加上200
-            double money = currentCustomer.getMoney();
-            money = money + 800;
-            System.out.println("你的余额是:" + money);
-            //存完款后，更新原有存款
-            currentCustomer.setMoney(money);
-        }else if(numIn.equals("6")){
-            //那么 存款1000 那么就应该 让顾客的钱加上1000
-            double money = currentCustomer.getMoney();
-            money = money + 1000;
-            System.out.println("你的余额是:" + money);
-            //存完款后，更新原有存款
-            currentCustomer.setMoney(money);
-        }else if(numIn.equals("7")){
-            //那么 存款2000 那么就应该 让顾客的钱加上2000
-            double money = currentCustomer.getMoney();
-            money = money + 2000;
-            System.out.println("你的余额是:" + money);
-            //存完款后，更新原有存款
-            currentCustomer.setMoney(money);
-        }else if(numIn.equals("8")){
-            Scanner sc = new Scanner(System.in);
-            System.out.println("请输入您的取款金额：");
-            int money = sc.nextInt();
-            if (money>0&&money<=currentCustomer.getMoney()){
-                currentCustomer.setMoney(currentCustomer.getMoney()+money);
-                System.out.println("存款成功");
-                System.out.println("你的当前余额为："+currentCustomer.getMoney());
-            }else {
-                System.out.println("输入错误");
-            }
+        String moneyIn = scanner.nextLine();
+        Double moneyInInt =Double.valueOf(moneyIn);
+        if ((moneyInInt %100) == 0 ) {
+
+            double newMoney = currentCustomer.getMoney()+moneyInInt;
+            currentCustomer.setMoney(newMoney);
+            System.out.println(" 存入成功！ 您账户的余额是：" + newMoney);
+        }else {
+            System.out.println("存入的金额不能小于100，存入金额失败");
         }
     }
+
     private void doQuitCard(){
         System.out.println("您是否继续操作yes/no[Y/N]");
         Scanner scanner = new Scanner(System.in);
