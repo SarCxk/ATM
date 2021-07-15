@@ -1,6 +1,6 @@
-package com.hp.datazuoye;
+package com.hp.dayzuoye;
 import java.util.Date;
-public class DateTest01 {
+public class DayTest01 {
     public static void main(String[] args) {
         Date date = new Date();
         System.out.println("现在的时间date = " + date);//date
